@@ -32,11 +32,11 @@ define e
 echo "\n\e[1;91m[ERROR]$(1)\e[0m\n"
 endef
 
-.PHONY: build default start bundle clean node_modules format format-write lint lint-fix start stop
+.PHONY: build default start bundle clean node_modules format format-write lint lint-fix start stop test
 
 default: build
 
-all: build bundle format
+all: build bundle format test
 
 build: $(typescript.build.files)
 
@@ -57,6 +57,9 @@ lint:
 lint-fix:
 	@$(call i, Linting the ts files and fixing anything that can be fixed)
 	npx tslint -c tslint.json --project tslint.json --fix 'src/**/*.{tsx,ts}'
+
+test:
+	npx jest
 
 node_modules: $(workspace.node_modules)
 
